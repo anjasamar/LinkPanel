@@ -1,11 +1,26 @@
-<img src="https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png">
+![Logo](https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png)
 
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
+## License
 
-- Also check author oringinal profile: <a href="https://github.com/anjasamar/LinkPanel" target="_blank">Anjas Amar Pradana</a>
+[GNU AGPLv3](https://github.com/ATSiCorp/LinkPanel?tab=AGPL-3.0-1-ov-file)
+
+
+## Used By
+
+This project is used by the following companies and work together:
+
+- <a href="https://aldinara.co.id" target="blank">PT.ALDINARA DIGITECH INNOVATION</a>
+
+## Authors
+
+- [@anjasamar](https://www.github.com/anjasamar)
+
 
 ## About LinkPanel
 LinkPanel is a Laravel based super lightweight cloud server control panel that supports small VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
+
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=atsicorp&label=Profile%20views&color=0e75b6&style=flat" alt="atsicorp" /> </p>
 
 ## Features
 - Easy install: setup one or more servers with a click in few minutes without be a Linux expert.
