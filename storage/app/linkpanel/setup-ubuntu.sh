@@ -62,7 +62,7 @@ clear
 clear
 echo "${bggreen}${black}${bold}"
 echo "OS check..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 
@@ -70,21 +70,21 @@ ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
     case $VERSION in
-        20.04 | 22.04)
+        20.04 | 22.04 | 24.04)
             break
             ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "LinkPanel requires Linux Ubuntu 24.04-22.04 LTS Only"
-            echo "${reset} = 'a'"
+            echo "LinkPanel requires Linux Ubuntu 24.04-24.04 LTS Only"
+            echo "${restart}"
             exit 1;
             break
             ;;
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "LinkPanel requires Linux Ubuntu 20.04-22.04 LTS Only"
-    echo "${reset} = 'a'"
+    echo "LinkPanel requires Linux Ubuntu 224.04-24.04 LTS Only"
+    echo "${restart}"
     exit 1
 fi
 
@@ -96,7 +96,7 @@ clear
 clear
 echo "${bggreen}${black}${bold}"
 echo "Permission check..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 if [ "$(id -u)" = "0" ]; then
@@ -106,7 +106,7 @@ else
     echo "${bgred}${white}${bold}"
     echo "You have to run LinkPanel as root. (In VPS or Local Server use '-s')"
     sleep 20s
-    echo "${reset} = 'a'"
+    echo "${restart}"
     exit 1
 fi
 
@@ -117,11 +117,11 @@ clear
 clear
 echo "${bggreen}${black}${bold}"
 echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel requirement..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 15s
 
 sudo apt-get update
-sudo apt-get upgrade -y
+sudo apt-get upgrade
 sudo add-apt-repository ppa:ondrej/php -y
 sudo add-apt-repository ppa:ondrej/nginx-mainline -y
 sudo apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
@@ -132,7 +132,7 @@ clear
 clear
 echo "${bggreen}${black}${bold}"
 echo "Getting this machine public IP not local IP..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 IP=(curl -s https://checkip.amazonaws.com)
@@ -142,7 +142,7 @@ IP=(curl -s https://checkip.amazonaws.com)
 clear
 echo "${bggreen}${black}${bold}"
 echo "Motd settings..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 WELCOME=/etc/motd
@@ -173,14 +173,14 @@ sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
 sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
 free -h
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 15s
 
 # ALIAS
 clear
 echo "${bggreen}${black}${bold}"
 echo "Custom CLI configuration..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 shopt -s expand_aliases
@@ -192,7 +192,7 @@ alias ll='ls -alF'
 clear
 echo "${bggreen}${black}${bold}"
 echo "Configure LinkPanel directories..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 sudo mkdir /etc/linkpanel/
@@ -206,7 +206,7 @@ sudo chmod o-r /var/linkpanel
 clear
 echo "${bggreen}${black}${bold}"
 echo "Set LinkPanel root user..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 sudo pam-auth-update --package
@@ -221,7 +221,7 @@ sudo usermod -aG linkpanel
 clear
 echo "${bggreen}${black}${bold}"
 echo "Nginx setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 apt-get -y install nginx.core
@@ -240,7 +240,7 @@ sleep 10s
 clear
 echo "${bggreen}${black}${bold}"
 echo "Fail2ban Firewall setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 apt-get -y install fail2ban
@@ -271,7 +271,7 @@ sudo ufw allow "Nginx Full"
 clear
 echo "${bggreen}${black}${bold}"
 echo "PHP setup (This may take some time for install and configure)"
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 15s
 
 
@@ -417,7 +417,7 @@ apt-get -y install php-dev php-pear
 clear
 echo "${bggreen}${black}${bold}"
 echo "PHP CLI configuration..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 update-alternatives --set php /usr/bin/php8.2
@@ -428,7 +428,7 @@ update-alternatives --set php /usr/bin/php8.2
 clear
 echo "${bggreen}${black}${bold}"
 echo "Composer setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -444,7 +444,7 @@ composer config --global repo.packagist composer https://packagist.org --no-inte
 clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 
 apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
@@ -455,7 +455,7 @@ sleep 5s
 clear
 echo "${bggreen}${black}${bold}"
 echo "Supervisor setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 apt-get -y install supervisor
@@ -469,7 +469,7 @@ sleep 5s
 clear
 echo "${bggreen}${black}${bold}"
 echo "Default vhost..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 10s
 
 NGINX=/etc/nginx/sites-available/default
@@ -518,7 +518,7 @@ sleep 15s
 clear
 echo "${bggreen}${black}${bold}"
 echo "MySQL setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 
@@ -556,7 +556,7 @@ EOF
 clear
 echo "${bggreen}${black}${bold}"
 echo "Redis setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 apt install -y redis-server
@@ -571,7 +571,7 @@ sleep 15s
 clear
 echo "${bggreen}${black}${bold}"
 echo "Let's Encrypt setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 apt-get install -y certbot
@@ -583,7 +583,7 @@ apt-get install -y python3-certbot-nginx
 clear
 echo "${bggreen}${black}${bold}"
 echo "Node/npm setup..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
@@ -607,7 +607,7 @@ apt -y install npm
 clear
 echo "${bggreen}${black}${bold}"
 echo "And now LinkPanel installation begin..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 15s
 
 echo "${bggreen}${black}${bold}"
@@ -674,7 +674,7 @@ sudo chown -R www-data:linkpanel /var/www/html
 clear
 echo "${bggreen}${black}${bold}"
 echo "Last LinkPanel installation steps..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 5s
 
 chown www-data:linkpanel -R /var/www/html
@@ -727,7 +727,7 @@ service supervisor restart
 clear
 echo "${bggreen}${black}${bold}"
 echo "LinkPanel installation has been completed..."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 15s
 
 HOSTNAME=hostname -f | awk '{print $1}'
